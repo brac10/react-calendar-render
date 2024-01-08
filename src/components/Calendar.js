@@ -15,6 +15,21 @@ const customItemRenderer = ({ item, timelineContext, itemContext, getItemProps, 
 };
 
 class MyTimeline extends React.Component {
+constructor(props) {
+  super(props);
+  this.timelineRef = React.createRef();
+};
+handleItemDoubleClick = (itemId) => {
+  // Handle double-click on timeline items here
+  console.log(`Double-clicked on item with ID: ${itemId}`);
+};
+
+handleTimelineDoubleClick = (e) => {
+  // Handle double-click on the timeline itself here
+  console.log('Double-clicked on the timeline');
+  // You can get the click position using e.clientX and e.clientY
+};
+
   render() {
     // Define your groups and items here
     const groups = [
@@ -23,7 +38,7 @@ class MyTimeline extends React.Component {
      {id: 3, title: 'PDS-RME04'}];
     const items = [
       {
-        id: 1, group: 1, 
+        id: 1, group: 1,
         title: 'Galaxy-5',
         start_time: moment(),
         end_time: moment().add(1, 'hour'),
@@ -47,6 +62,8 @@ class MyTimeline extends React.Component {
         items={items}
         defaultTimeStart={moment().add(-12, 'hour')}
         defaultTimeEnd={moment().add(12, 'hour')}
+        onItemDoubleClick={this.handleItemDoubleClick}
+        onCanvasDoubleClick={this.handleTimelineDoubleClick}
         itemRenderer={customItemRenderer} // Custom renderer for items
       />
     );
